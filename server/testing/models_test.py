@@ -27,6 +27,12 @@ class TestAuthor:
         '''requires each record to have a unique name.'''
         
         with app.app_context():
+            
+            existing_author = Author.query.filter_by(name='Ben').first()
+        if existing_author:
+            db.session.delete(existing_author)
+            db.session.commit()
+            
             author_a = Author(name = 'Ben', phone_number = '1231144321')
             db.session.add(author_a)
             db.session.commit()
